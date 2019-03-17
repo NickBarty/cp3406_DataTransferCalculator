@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Data_Transfer_Calculator</string>
+    <string name="app_name">Data Transfer Calculator</string>
+    <string name="datasize">Datasize:</string>
+    <string name="transfer_rate">Transfer Rate:</string>
+    <string name="transferring_0_mb_at_0_mbps_will_take">Transferring 0 MB at 0 Mbps will take</string>
+    <string name="_0_hours_0_minutes">0 Hours 0 Minutes</string>
+
+    <string-array name="datasizes">
+        <item>MB</item>
+        <item>GB</item>
+    </string-array>
+
+    <string-array name="transfer_rates">
+        <item>Mbps</item>
+        <item>MBps</item>
+    </string-array>
 </resources>
