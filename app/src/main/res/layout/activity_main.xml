@@ -87,9 +87,17 @@
                 android:id="@+id/time_statement"
                 android:layout_width="wrap_content"
                 android:gravity="center"
-                android:text="@string/_0_hours_0_minutes"
+                android:text="@string/_0_hours_0_minutes_0_Seconds"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+        </TableRow>
+        <TableRow>
+            <Button
+                android:layout_weight="1"
+                android:text="@string/calculate_time"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:onClick="calculateTime"/>
         </TableRow>
     </TableLayout>
 
