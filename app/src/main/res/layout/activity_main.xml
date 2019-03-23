@@ -1,105 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TableLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TableRow
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
+    <!--Datasize Layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5sp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30sp">
+            android:layout_weight="0"
+            android:text="@string/datasize"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:text="@string/datasize"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/datasize_input"
-                android:layout_width="match_parent"
-                android:ems="10"
-                android:inputType="number"
-                tools:ignore="Autofill,LabelFor" />
-
-            <Spinner
-                android:id="@+id/spinner_datasize"
-                android:layout_width="match_parent"
-                android:entries="@array/datasizes" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/datasize_input"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30sp">
+            android:layout_weight="1"
+            android:inputType="number"
+            tools:ignore="Autofill,LabelFor"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_weight="5"
-                android:text="@string/transfer_rate"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/transfer_rate_input"
-                android:layout_width="match_parent"
-                android:layout_weight="1.3"
-                android:ems="5"
-                android:inputType="number"
-                tools:ignore="Autofill,LabelFor" />
-
-            <Spinner
-                android:id="@+id/spinner_transfer_rates"
-                android:layout_width="match_parent"
-                android:entries="@array/transfer_rates" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner_datasize"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:entries="@array/datasizes_long" />
+
+    </LinearLayout>
+
+    <!--Transfer Rate Layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/transfer_rate"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/transfer_rate_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            tools:ignore="Autofill,LabelFor"/>
+
+        <Spinner
+            android:id="@+id/spinner_transfer_rates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0."
+            android:entries="@array/transfer_rates_long" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/transfer_statement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="50sp">
+            android:text="@string/transferring_0_mb_at_0_mbps_will_take"
+            android:textColor="@color/black"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/transfer_statement"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/transferring_0_mb_at_0_mbps_will_take"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TableRow
+        <TextView
+            android:id="@+id/time_statement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/_0_hours_0_minutes_0_Seconds"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/time_statement"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/_0_hours_0_minutes_0_Seconds"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </TableRow>
-        <TableRow>
-            <Button
-                android:layout_weight="1"
-                android:text="@string/calculate_time"
-                android:textSize="22sp"
-                android:gravity="center"
-                android:onClick="calculateTime"/>
-        </TableRow>
-    </TableLayout>
+            android:text="@string/calculate_time"
+            android:onClick="calculateTime"/>
+    </LinearLayout>
 
 
-</android.support.v7.widget.LinearLayoutCompat>
+</LinearLayout>
