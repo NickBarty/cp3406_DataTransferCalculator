@@ -52,7 +52,7 @@ public class Settings extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
 
         precision = sharedPreferences.getBoolean(PRECISION_MODE, false);
-        shorthand = sharedPreferences.getBoolean(SHORTHAND_NOTATION, true);
+        shorthand = sharedPreferences.getBoolean(SHORTHAND_NOTATION, false);
     }
 
     public void updateViews() {

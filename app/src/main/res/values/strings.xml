@@ -2,7 +2,7 @@
     <string name="app_name">Data Transfer Calculator</string>
     <string name="datasize">Datasize:</string>
     <string name="transfer_rate">Transfer Rate:</string>
-    <string name="transferring_0_mb_at_0_mbps_will_take">Transferring 0MB at 0Mbps will take</string>
+    <string name="transferring_0_mb_at_0_mbps_will_take">0 Megabytes at 0 Megabytes p/s will take</string>
     <string name="_0_hours_0_minutes_0_Seconds">0 Hours 0 Minutes 0 Seconds</string>
     <string name="calculate_time">Calculate Time</string>
 

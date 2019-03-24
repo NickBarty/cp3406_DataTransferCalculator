@@ -40,8 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:imeOptions="actionGo"
             android:inputType="number"
-            tools:ignore="Autofill,LabelFor"/>
+            tools:ignore="Autofill,LabelFor">
+        </EditText>
+
 
         <Spinner
             android:id="@+id/spinner_datasize"
@@ -53,6 +56,12 @@
     </LinearLayout>
 
     <!--Transfer Rate Layout-->
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:imeOptions="actionGo"
             android:inputType="number"
             tools:ignore="Autofill,LabelFor"/>
 
@@ -83,10 +93,18 @@
             android:entries="@array/transfer_rates_long" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="15sp"
+        android:paddingBottom="5sp">
 
         <TextView
             android:id="@+id/transfer_statement"
@@ -95,13 +113,15 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/transferring_0_mb_at_0_mbps_will_take"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="10sp">
 
         <TextView
             android:id="@+id/time_statement"
@@ -110,7 +130,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/_0_hours_0_minutes_0_Seconds"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="25sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -123,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/calculate_time"
-            android:onClick="calculateTime"/>
+            android:onClick="onClick"/>
     </LinearLayout>
 
 
