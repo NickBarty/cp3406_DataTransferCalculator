@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,19 +29,21 @@ public class MainActivity extends AppCompatActivity {
     public static final String DATASIZE_SPINNER = "datasize_spinner";
     public static final String TRANSFER_RATE_SPINNER = "transfer_rate_spinner";
 
-    double datasize = 0;
+    double datasize_in_MB = 0;
     double transferRate = 0;
+    int total_seconds = 0;
+    double display_datasize_in_MB = 0.0;
     //Set the spinners
     Spinner datasize_spinner;
     Spinner transferRate_spinner;
 
     //Get selected item from spinners
-    String datasize_string;
-    String transferRate_string;
+    String datasize_type;
+    String transferRate_type;
 
     //Get entered inputs
-    EditText datasize_int;
-    EditText transferRate_int;
+    EditText datasize_text_input;
+    EditText transferRate_text_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            saveSpinners();
             Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
         }
@@ -91,39 +93,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         hideKeyboard(MainActivity.this);
-        calculateTime();
+        displayTime();
     }
 
-    public void calculateTime() {
+    public int[] calculateTime(int total_seconds) {
+        int timeValues[] = new int[3];
+        timeValues[0] = total_seconds / 3600;
+        timeValues[1] = (total_seconds % 3600) / 60;
+        timeValues[2] = total_seconds % 60;
+        return timeValues;
+    }
+
+    public void displayTime() {
         getLayoutComponents();
-        double datasize_statement = 0.0;
-        double time = 0;
-
-        try {
-            if (datasize_string.equals("GB") || datasize_string.equals("Gigabytes")) {
-                datasize = Double.parseDouble(datasize_int.getText().toString()) * 1000;
-                datasize_statement = datasize / 1000;
-            } else if (datasize_string.equals("MB") || datasize_string.equals("Megabytes")) {
-                datasize = Double.parseDouble(datasize_int.getText().toString());
-                datasize_statement = datasize;
-            }
-
-
-            if (transferRate_string.equals("MBps") || transferRate_string.equals("Megabytes p/s")) {
-                transferRate = Double.parseDouble(transferRate_int.getText().toString());
-                time = datasize / transferRate;
-            } else if (transferRate_string.equals("Mbps") || transferRate_string.equals("Megabits p/s")) {
-                transferRate = Double.parseDouble(transferRate_int.getText().toString());
-                time = (datasize / transferRate) * 8;
-            }
-        } catch (NumberFormatException e) {
-            Toast toast = Toast.makeText(MainActivity.this, "Enter numbers into both fields", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
-        double hours = time / 3600.0;
-        double mins = (time % 3600) / 60.0;
-        double seconds = time % 60.0;
+        getTextInputs();
 
         TextView transfer_statement = findViewById(R.id.transfer_statement);
         TextView time_statement = findViewById(R.id.time_statement);
@@ -134,30 +117,30 @@ public class MainActivity extends AppCompatActivity {
         if (getPrecisionPref()) {
             data_statement = String.format(Locale.ENGLISH,
                     "<html><font color=blue>%.2f</font> %s at <font color=blue>%.2f</font> %s will take</html>",
-                    datasize_statement, datasize_string, transferRate, transferRate_string);
-            transfer_statement.setText(Html.fromHtml(data_statement,0));
+                    display_datasize_in_MB, datasize_type, transferRate, transferRate_type);
+            transfer_statement.setText(Html.fromHtml(data_statement, 0));
         } else {
             data_statement = String.format(Locale.ENGLISH,
                     "<html><font color=blue>%.0f</font> %s at <font color=blue>%.0f</font> %s will take</html>",
-                    datasize_statement, datasize_string, transferRate, transferRate_string);
-            transfer_statement.setText(Html.fromHtml(data_statement,0));
+                    display_datasize_in_MB, datasize_type, transferRate, transferRate_type);
+            transfer_statement.setText(Html.fromHtml(data_statement, 0));
         }
 
         calculate_statement = String.format(Locale.ENGLISH,
-                "<html><b>%.0f</b> Hours <b>%.0f</b> Minutes <b>%.0f</b> Seconds",
-                hours, mins, seconds);
-        time_statement.setText(Html.fromHtml(calculate_statement,0));
+                "<html><b>%d</b> Hours <b>%d</b> Minutes <b>%d</b> Seconds",
+                calculateTime(total_seconds)[0], calculateTime(total_seconds)[1], calculateTime(total_seconds)[2]);
+        time_statement.setText(Html.fromHtml(calculate_statement, 0));
     }
 
     public void applySettings() {
         if (getPrecisionPref()) {
             //Set keyboard to decimals
-            datasize_int.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-            transferRate_int.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            datasize_text_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            transferRate_text_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         } else {
             //Set keyboard to numbers
-            datasize_int.setInputType(InputType.TYPE_CLASS_NUMBER);
-            transferRate_int.setInputType(InputType.TYPE_CLASS_NUMBER);
+            datasize_text_input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            transferRate_text_input.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
 
         if (getShorthandPref()) {
@@ -190,25 +173,48 @@ public class MainActivity extends AppCompatActivity {
         transferRate_spinner.setSelection(transfer_rate_value);
     }
 
+    public void getTextInputs() {
+        try {
+            if (datasize_type.equals("GB") || datasize_type.equals("Gigabytes")) {
+                datasize_in_MB = Double.parseDouble(datasize_text_input.getText().toString()) * 1000;
+                display_datasize_in_MB = datasize_in_MB / 1000;
+            } else if (datasize_type.equals("MB") || datasize_type.equals("Megabytes")) {
+                datasize_in_MB = Double.parseDouble(datasize_text_input.getText().toString());
+                display_datasize_in_MB = datasize_in_MB;
+            }
+
+            if (transferRate_type.equals("MBps") || transferRate_type.equals("Megabytes p/s")) {
+                transferRate = Double.parseDouble(transferRate_text_input.getText().toString());
+                total_seconds = (int) datasize_in_MB / (int) transferRate;
+            } else if (transferRate_type.equals("Mbps") || transferRate_type.equals("Megabits p/s")) {
+                transferRate = Double.parseDouble(transferRate_text_input.getText().toString());
+                total_seconds = (int) (datasize_in_MB / transferRate) * 8;
+            }
+        } catch (NumberFormatException e) {
+            Toast toast = Toast.makeText(MainActivity.this, "Enter numbers into both fields", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
     public void getLayoutComponents() {
         //Get the spinners
         datasize_spinner = findViewById(R.id.spinner_datasize);
         transferRate_spinner = findViewById(R.id.spinner_transfer_rates);
 
         //Get selected item from spinners
-        datasize_string = datasize_spinner.getSelectedItem().toString();
-        transferRate_string = transferRate_spinner.getSelectedItem().toString();
+        datasize_type = datasize_spinner.getSelectedItem().toString();
+        transferRate_type = transferRate_spinner.getSelectedItem().toString();
 
         //Get entered inputs
-        datasize_int = findViewById(R.id.datasize_input);
-        transferRate_int = findViewById(R.id.transfer_rate_input);
+        datasize_text_input = findViewById(R.id.datasize_input);
+        transferRate_text_input = findViewById(R.id.transfer_rate_input);
 
-        //Set enter key listener for datasize editText field
-        datasize_int.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        //Set enter key listener for datasize_in_MB editText field
+        datasize_text_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_GO) {
-                    calculateTime();
+                    displayTime();
                     return true;
                 }
                 return false;
@@ -216,14 +222,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Set enter key listener for transfer rate editText field
-        transferRate_int.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        transferRate_text_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_GO) {
-                    calculateTime();
+                    displayTime();
                     return true;
                 }
                 return false;
+            }
+        });
+
+        //Tell the app to save the selection of the spinners when either spinner is opened
+        datasize_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                saveSpinners();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                saveSpinners();
+            }
+        });
+
+        transferRate_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                saveSpinners();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                saveSpinners();
             }
         });
     }
