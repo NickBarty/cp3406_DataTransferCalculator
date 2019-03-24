@@ -29,14 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/precision_mode"
-        android:onClick="saveData"/>
+        android:onClick="onClickSaveData"/>
 
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+        android:background="@color/black" />
 
     <Switch
         android:id="@+id/switch_shorthandNotation"
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/shorthand_datasize_notation"
-        android:onClick="saveData"/>
+        android:onClick="onClickSaveData"/>
 
 
 </LinearLayout>

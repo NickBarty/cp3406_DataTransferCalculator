@@ -34,28 +34,29 @@ public class Settings extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        //Add back button to toolbar
         onBackPressed();
         return true;
     }
 
-    public void saveData(View view) {
+    public void onClickSaveData(View view) {
+        //Saves the preferences whenever a switch is clicked
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         editor.putBoolean(PRECISION_MODE, precision_mode.isChecked());
         editor.putBoolean(SHORTHAND_NOTATION, shorthand_notation.isChecked());
-
         editor.apply();
     }
 
     public void loadData() {
+        //Loads data when activity is created
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
-
         precision = sharedPreferences.getBoolean(PRECISION_MODE, false);
         shorthand = sharedPreferences.getBoolean(SHORTHAND_NOTATION, false);
     }
 
     public void updateViews() {
+        //Updates switches state
         precision_mode.setChecked(precision);
         shorthand_notation.setChecked(shorthand);
     }

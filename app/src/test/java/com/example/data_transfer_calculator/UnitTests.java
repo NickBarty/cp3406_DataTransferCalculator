@@ -53,14 +53,14 @@ public class UnitTests {
         MainActivity mainActivity = new MainActivity();
 //        Set arbitrary variables for data/transfer sizes
         mainActivity.display_datasize_in_MB = 20;
-        mainActivity.datasize_type = "MB";
+        mainActivity.datasize_notation = "MB";
         mainActivity.transferRate = 5;
-        mainActivity.transferRate_type = "Megabytes";
+        mainActivity.transferRate_notation = "Megabytes";
 
 //        Create a sting of what is outputted in the app
         String test_string = String.format("%.0f %s at %.0f %s will take",
-                mainActivity.display_datasize_in_MB, mainActivity.datasize_type,
-                mainActivity.transferRate, mainActivity.transferRate_type);
+                mainActivity.display_datasize_in_MB, mainActivity.datasize_notation,
+                mainActivity.transferRate, mainActivity.transferRate_notation);
 
 //        Test the string is what we want it to be based on the variables provided
         assertEquals("20 MB at 5 Megabytes will take", test_string);
