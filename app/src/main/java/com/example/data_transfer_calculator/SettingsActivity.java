@@ -7,16 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Switch;
 
-public class Settings extends AppCompatActivity {
-    Switch precision_mode;
-    Switch shorthand_notation;
+public class SettingsActivity extends AppCompatActivity {
+    private Switch precision_mode;
+    private Switch shorthand_notation;
 
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String PRECISION_MODE = "precision_mode";
-    public static final String SHORTHAND_NOTATION = "shorthand_notation";
+    private static final String SHARED_PREFS = "sharedPrefs";
+    private static final String DECIMAL_MODE = "decimal_mode";
+    private static final String SHORTHAND_NOTATION = "shorthand_notation";
 
-    boolean precision;
-    boolean shorthand;
+    private boolean precision;
+    private boolean shorthand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +43,19 @@ public class Settings extends AppCompatActivity {
         //Saves the preferences whenever a switch is clicked
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(PRECISION_MODE, precision_mode.isChecked());
+        editor.putBoolean(DECIMAL_MODE, precision_mode.isChecked());
         editor.putBoolean(SHORTHAND_NOTATION, shorthand_notation.isChecked());
         editor.apply();
     }
 
-    public void loadData() {
+    private void loadData() {
         //Loads data when activity is created
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
-        precision = sharedPreferences.getBoolean(PRECISION_MODE, false);
+        precision = sharedPreferences.getBoolean(DECIMAL_MODE, false);
         shorthand = sharedPreferences.getBoolean(SHORTHAND_NOTATION, false);
     }
 
-    public void updateViews() {
+    private void updateViews() {
         //Updates switches state
         precision_mode.setChecked(precision);
         shorthand_notation.setChecked(shorthand);
