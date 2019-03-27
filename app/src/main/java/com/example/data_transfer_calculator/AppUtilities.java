@@ -52,7 +52,6 @@ class AppUtilities {
         ArrayAdapter<String> datasizeAdapter_long = new ArrayAdapter<>(mainActivity, android.R.layout.simple_spinner_dropdown_item, mainActivity.getResources().getStringArray(R.array.datasizes_long));
         ArrayAdapter<String> transferRateAdapter_long = new ArrayAdapter<>(mainActivity, android.R.layout.simple_spinner_dropdown_item, mainActivity.getResources().getStringArray(R.array.transfer_rates_long));
 
-
         if (getPrecisionPref(mainActivity)) {
             //Set keyboard to decimals
             mainActivity.datasize_text_input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -128,7 +127,7 @@ class AppUtilities {
     static boolean getPrecisionPref(MainActivity mainActivity) {
         //Gets the precision setting preference
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("sharedPrefs", 0);
-        return sharedPreferences.getBoolean("precision_mode", false);
+        return sharedPreferences.getBoolean("decimal_mode", false);
     }
 
     private static boolean getShorthandPref(MainActivity mainActivity) {
