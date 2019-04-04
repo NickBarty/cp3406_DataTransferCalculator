@@ -64,11 +64,9 @@ class TimeConverter {
 
             //Catch non-number and divide by 0 errors and display toast accordingly
         } catch (NumberFormatException e) {
-            Toast toast = Toast.makeText(mainActivity, "Enter numbers into both fields", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(mainActivity, "Enter numbers into both fields", Toast.LENGTH_SHORT).show();
         } catch (ArithmeticException e) {
-            Toast toast = Toast.makeText(mainActivity, "Enter numbers other than 0", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(mainActivity, "Enter numbers other than 0", Toast.LENGTH_SHORT).show();
         }
     }
 

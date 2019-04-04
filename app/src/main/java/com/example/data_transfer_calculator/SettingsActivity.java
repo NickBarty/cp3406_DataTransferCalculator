@@ -11,10 +11,6 @@ public class SettingsActivity extends AppCompatActivity {
     private Switch precision_mode;
     private Switch shorthand_notation;
 
-    private static final String SHARED_PREFS = "sharedPrefs";
-    private static final String DECIMAL_MODE = "decimal_mode";
-    private static final String SHORTHAND_NOTATION = "shorthand_notation";
-
     private boolean precision;
     private boolean shorthand;
 
@@ -25,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Find switch views
         precision_mode = findViewById(R.id.switch_precisionMode);
         shorthand_notation = findViewById(R.id.switch_shorthandNotation);
 
@@ -41,18 +38,18 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void onClickSaveData(View view) {
         //Saves the preferences whenever a switch is clicked
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(DECIMAL_MODE, precision_mode.isChecked());
-        editor.putBoolean(SHORTHAND_NOTATION, shorthand_notation.isChecked());
+        editor.putBoolean(MainActivity.DECIMAL_MODE, precision_mode.isChecked());
+        editor.putBoolean(MainActivity.SHORTHAND_NOTATION, shorthand_notation.isChecked());
         editor.apply();
     }
 
     private void loadData() {
         //Loads data when activity is created
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, 0);
-        precision = sharedPreferences.getBoolean(DECIMAL_MODE, false);
-        shorthand = sharedPreferences.getBoolean(SHORTHAND_NOTATION, false);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, 0);
+        precision = sharedPreferences.getBoolean(MainActivity.DECIMAL_MODE, false);
+        shorthand = sharedPreferences.getBoolean(MainActivity.SHORTHAND_NOTATION, false);
     }
 
     private void updateViews() {

@@ -14,6 +14,8 @@ import android.widget.Spinner;
 public class MainActivity extends AppCompatActivity {
     //Set shared preferences that is used to save the state of objects
     public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String DECIMAL_MODE = "decimal_mode";
+    public static final String SHORTHAND_NOTATION = "shorthand_notation";
     public static final String DATASIZE_SPINNER = "datasize_spinner";
     public static final String TRANSFER_RATE_SPINNER = "transfer_rate_spinner";
 
